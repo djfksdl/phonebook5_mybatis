@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!-- -->
+<mapper namespace="phonebook"><!-- 이 공간은 phonebook안에 있는 뭐다! 다른것돌도 겹칠 수있어서 이름 써주기 -->
+
+	<!-- 전체 리스트 가져오기 -->
+	<select id= "select" resultType="com.javaex.vo.PersonVo" ><!--select가 또 있을 수 있으니까?2:39 태그니까 키값으로 이름을 지어준다.결과값을 내보내는건 resultType이다.-->
+		select person_id as personId <!-- setter가 setPersonId로 있기때문에 값들어가게 하려면 as로 별명 만들어서 들어올 수 있게 한다!! -->
+				,name
+				,hp
+        		,company
+		from person<!-- 여기에 ;는 안붙음 -->
+	</select>
+	
+	<!-- 쿼리문 작성 insert-->
+	<insert id="insert" parameterType="com.javaex.vo.PersonVo"><!-- 파라미터 값 받는건 parameterType으로 받는다. -->
+		insert into person
+		values(null,#{name},#{hp},#{company})<!--jstl과 모양이 비슷  #{name}으로 하면 getName으로 가져온다.-->
+		<!-- int result 안해도 알아서 int count는 디폴트값으로 준다.-->
+	</insert>
+	
+	<!-- 1명 데이터 가져오기 selectOne-->
+	<select id="selectOne" parameterType="int" resultType="com.javaex.vo.PersonVo"><!-- 담을때 여기에 있는 setter로 담음 -->
+		select  person_id  personId<!--as는 생략가능 -->
+				,name
+        		,hp
+        		,company
+		from person
+		where person_id = #{no}<!--no는 이름 굳이 안맞춰도됨. 값이 오는게 하나밖에 없으니까! 근데 헷갈릴까봐 그냥 같은 이름으로 써줌. -->
+		<!--0x333의 주소로 가져옴 -->
+	</select>
+	
+	<!-- 데이터 수정 update-->
+	<update id="update" parameterType="com.javaex.vo.PersonVo"><!-- int count는 서비스라 굳이 resurtType안써도됨! 업데이트는 다른 결과를 받을 수 없다.  -->
+		update person
+		set name = #{name}<!--#은 getter,setter다! -->
+			,hp = #{hp}
+    		,company = #{company}
+		where person_id = #{personId}
+	</update>
+	
+	<!-- 데이터 삭제 delete-->
+	<delete id="delete" parameterType="int">
+		delete 
+		from person
+		where person_id=#{no}
+	</delete>
+
+</mapper>
