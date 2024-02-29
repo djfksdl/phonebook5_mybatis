@@ -1,6 +1,7 @@
 package com.javaex.controller;
 
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -33,7 +34,7 @@ public class PhonebookController {
 		return "writeForm";//'뷰' 를 추가해줘서 앞뒤에 붙은 건 빼줘야 주소가 제대로 찾아감
 	}
 	//등록2- 갯수 많으면 실수할 수 있으니 파라미터 묶어서'까지 줘-> PersonVo에 담는것까지는 알려줘야함. 꺼내서 묶어서 나한테 줘. 자료형(PserconVo)에 담고 이름을 알려줘야 꺼내 쓸 수 있으니 personVo로 이름을 주면 디스패쳐가 new해줌.
-	@RequestMapping(value="/phone/write2" ,method={RequestMethod.GET , RequestMethod.POST } )
+	@RequestMapping(value="/phone/write" ,method={RequestMethod.GET , RequestMethod.POST } )
 	//localhost:8080/phonebook5/phone/write?name=황일영&hp=010&company=02
 	public String write(@ModelAttribute PersonVo personVo)  {//이때도 setter로 담는다.
 		System.out.println("PhonebookController.write2()");
@@ -42,7 +43,22 @@ public class PhonebookController {
 		System.out.println(personVo.toString());
 		
 		//서비스를 메모리에 올리고 서비스의 메소드 사용해야함!(3단계)
-		phonebookService.exeWrite(personVo);//
+		phonebookService.exeWrite2(personVo);//
+		
+		//리스트로 리다이렉트
+		return "redirect:/phone/list";
+	}
+	//등록1- 안묶고 넘길때 Map사용!
+	@RequestMapping(value="/phone/write2" ,method={RequestMethod.GET , RequestMethod.POST } )
+	//localhost:8080/phonebook5/phone/write?name=황일영&hp=010&company=02
+	public String write2(@RequestParam(value="name") String name,
+						 @RequestParam(value="hp") String hp,
+						 @RequestParam(value="company") String company)  {//이때도 setter로 담는다.
+		System.out.println("PhonebookController.write1()");
+		
+		System.out.println(name);
+		//서비스로
+		phonebookService.exeWrite(name, hp, company);
 		
 		//리스트로 리다이렉트
 		return "redirect:/phone/list";
@@ -97,6 +113,21 @@ public class PhonebookController {
 			
 			model.addAttribute("personVo" ,personVo); //이름,주소 로 담아준다.
 			return "modifyForm";
+			
+		}
+		//수정폼2
+		@RequestMapping(value="/phone/modifyform2", method= {RequestMethod.GET, RequestMethod.POST}) //=이 주소에 오면 일할 수 있게 주소좀 등록해주렴.
+		private String modifyForm2(@RequestParam(value="no") int no , Model model) {//파라미터 가져오기- 하나씩 꺼내오거나 두개이상은 묶어줘 의 2가지 방법이 있다. 지금은 int no 1개만 받아옴.
+			System.out.println("PhonebookController.modifyForm2()");
+			System.out.println(no);
+			
+//			//서비스 연결
+			Map<String , Object> pMap = phonebookService.exeModifyForm2(no);
+
+			System.out.println(pMap);
+			model.addAttribute("pMap" ,pMap); //이름,주소 로 담아준다.
+			
+			return "modifyForm2";
 			
 		}
 		
