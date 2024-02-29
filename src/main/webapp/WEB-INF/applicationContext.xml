@@ -34,7 +34,7 @@
 		<constructor-arg index="0" ref="mysqlDataSource" />
 	</bean>
 
-	<!-- ========Mybitis설치후 셋팅->======== classpath:mybatis/configuration.xml만들어줘야함.-->
+	<!-- ========Mybatis설치후 셋팅->======== classpath:mybatis/configuration.xml만들어줘야함.-->
 	<!-- MyBatis SqlSessionFactoryBean 설정 -->
 	<bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
 		<property name="dataSource" ref="mysqlDataSource" />
