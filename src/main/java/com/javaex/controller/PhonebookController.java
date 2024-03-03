@@ -43,7 +43,7 @@ public class PhonebookController {
 		System.out.println(personVo.toString());
 		
 		//서비스를 메모리에 올리고 서비스의 메소드 사용해야함!(3단계)
-		phonebookService.exeWrite2(personVo);//
+		phonebookService.exeWrite2(personVo);
 		
 		//리스트로 리다이렉트
 		return "redirect:/phone/list";
@@ -66,7 +66,7 @@ public class PhonebookController {
 	//리스트
 		@RequestMapping(value="/phone/list" ,method={RequestMethod.GET , RequestMethod.POST } )
 		//localhost:8080/phonebook5/phone/write?name=황일영&hp=010&company=02
-		private String list(Model model) {//Model에서attribute에 담아야할때만 써준다. model은 데이터고, view는 화면이다.
+		private String list(Model model) {//Model에서 넣은주소를 request.attribute에 담아야할때만 써준다. model은 데이터고, view는 화면이다.
 			System.out.println("PhonebookController.list()");
 			
 			//서비스를 메모리에 올리고 서비스의 메소드 사용해야함!(3단계)
@@ -90,7 +90,7 @@ public class PhonebookController {
 		}
 		//수정
 		@RequestMapping(value="/phone/modify", method= {RequestMethod.GET, RequestMethod.POST})
-		private String modify(@ModelAttribute PersonVo personVo) {//dispatcherservlet이 new해서 gs를 생성함 ?gs생성함확인10:49/여러가지 담아오는거라 모델로 써줌
+		private String modify(@ModelAttribute PersonVo personVo) {
 			System.out.println("PhonebookController.modify()");
 			
 //			System.out.println(personVo);

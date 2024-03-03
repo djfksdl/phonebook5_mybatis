@@ -49,7 +49,7 @@ public class PhonebookDao {
 	public Map<String, Object> personSelectOne2(int no) {
 		System.out.println("phonebookDao.personSelectOne2()");
 		System.out.println(no);//Dao에서는 중간에 확인이 안되니 꼭 찍어보기
-		Map<String, Object> pMap= sqlSession.selectOne("phonebook.selectOne2", no);//받는 값에 int도 있고 String 도 있어서 2번째 자리는 Object라고 받는다. xml안에서 맵으로 만들어서 임의로 키값을 만든거라 우리는 모름. ㅒㅠㅓㄷㅊㅅ로 받을수밖에 없다.
+		Map<String, Object> pMap= sqlSession.selectOne("phonebook.selectOne2", no);//받는 값에 int도 있고 String 도 있어서 2번째 자리는 Object라고 받는다. xml안에서 맵으로 만들어서 임의로 키값을 만든거라 우리는 모름. Object로 받을수밖에 없다.
 		
 		System.out.println(pMap.get("name"));
 		System.out.println(pMap.get("hp"));
