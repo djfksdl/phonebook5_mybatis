@@ -65,7 +65,7 @@ public class PhonebookController {
 	}
 	//리스트
 		@RequestMapping(value="/phone/list" ,method={RequestMethod.GET , RequestMethod.POST } )
-		//localhost:8080/phonebook5/phone/write?name=황일영&hp=010&company=02
+		//localhost:8080/phonebook5/phone/list
 		private String list(Model model) {//Model에서 넣은주소를 request.attribute에 담아야할때만 써준다. model은 데이터고, view는 화면이다.
 			System.out.println("PhonebookController.list()");
 			
